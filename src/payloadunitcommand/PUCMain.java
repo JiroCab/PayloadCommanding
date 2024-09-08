@@ -3,6 +3,7 @@ package payloadunitcommand;
 import arc.Events;
 import arc.scene.Element;
 import arc.scene.event.Touchable;
+import arc.scene.ui.layout.Scl;
 import arc.scene.ui.layout.Table;
 import arc.struct.Seq;
 import arc.util.Strings;
@@ -50,7 +51,7 @@ public class PUCMain extends Mod {
             String[] ids = params[2].split("-");
             Seq<Unit> list = new Seq<>();
             for (String id : ids) {
-                Groups.unit.getByID(Integer.parseInt(id));
+                list.add(Groups.unit.getByID(Integer.parseInt(id)));
             }
             payloadHandler(params[0].equals("true"), params[1].equals("true"), list);
         });
@@ -69,20 +70,22 @@ public class PUCMain extends Mod {
     public void rebuildSubButtons(){
         pucTable.reset();
         pucTable.clear();
+        float scl = Scl.scl(1f);
 
         if(net.client() && !validHost)return;
         float pad = 1f;
         pucTable.table(Tex.pane, t ->{
             t.margin(0f);
-            t.button(Icon.distribution, Styles.clearNoneTogglei, () -> carryBlocks = !carryBlocks).update(l -> l.setChecked(carryBlocks)).name("puc-take-block").pad(pad).size(48f).row();
-            t.button(Icon.up, Styles.clearNonei, () -> buttonHandler(true)).name("puc-take-button").pad(pad).size(42f).row();
-            t.button(Icon.down, Styles.clearNonei, () -> buttonHandler(false)).name("puc-drop-button").pad(pad).size(48f).row();
+            t.button(Icon.distribution, Styles.clearNoneTogglei, () -> carryBlocks = !carryBlocks).update(l -> l.setChecked(carryBlocks)).name("puc-take-block").pad(pad).size(48f * scl).row();
+            t.button(Icon.up, Styles.clearNonei, () -> buttonHandler(true)).name("puc-take-button").pad(pad).size(42f * scl).row();
+            t.button(Icon.down, Styles.clearNonei, () -> buttonHandler(false)).name("puc-drop-button").pad(pad).size(48f * scl).row();
         });
-        pucTable.add(new Element()).width((337)).height(40).margin(12f).touchable( Touchable.disabled);
+        pucTable.add(new Element()).width((337)).height(40).margin(12f * scl).touchable( Touchable.disabled);
     }
 
     public void buttonHandler(boolean take) {
         Seq<Unit> list = control.input.selectedUnits.copy();
+        if(list.size < 1) return;
         list.removeAll(u -> !(u instanceof Payloadc));
 
         if (Vars.net.server() || !Vars.net.active()) {
