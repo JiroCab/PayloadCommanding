@@ -11,14 +11,14 @@ author: "RushieWashie"
 main: "payloadunitcommand.PUCMain"
 
 #the mod description as seen in the mod dialog
-description: "Adds in a button to tell units to take/drop payload while in command mode \n\n Host needs to have the mod to work in multiplayer!"
+description: "Always Shows payload load/drop buttons regardless of units selected! \n Allows payload in waves!\n use releases for v7 version"
 
 #the mod version
-version: 1.2
-subtitle: "v1.2 yeet them units!"
+version: 1.3
+subtitle: "v1.3 yeet them units!"
 
 #the minimum game build required to run this mod
-minGameVersion: 145
+minGameVersion: 147.1
 
 #this is a java mod
 java: true
