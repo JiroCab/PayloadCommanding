@@ -1,3 +1,5 @@
+Depricated: V8 has proper Payload Controls & rushie is too lazy 
+
 # PayloadCommanding
 Makes Payload commands a button that shows regardless if you selected only payload units!
 
